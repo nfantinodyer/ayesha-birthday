@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday, Ayesha 🌸</title>
+<meta name="description" content="A birthday surprise made with love for Ayesha — tap to open your card.">
+<meta name="theme-color" content="#0e5a4a">
+<meta property="og:title" content="Happy Birthday, Ayesha 🌸">
+<meta property="og:description" content="A surprise made with love — tap to open your card">
+<!-- ✏️ After deploying, uncomment and set to the FULL https URL of an image (shows in WhatsApp link previews):
+<meta property="og:image" content="https://YOUR-SITE-URL/preview.jpg">
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --emerald:#0e5a4a;
+    --emerald-deep:#082e26;
+    --gold:#c8a24b;
+    --gold-bright:#e3c171;
+    --ivory:#faf6ed;
+    --paper:#fffdf6;
+    --rose:#cf8fa3;
+    --ink:#33403b;
+    --serif:"Cormorant Garamond", Georgia, serif;
+    --urdu:"Noto Nastaliq Urdu", serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0 }
+  html{ scroll-behavior:smooth }
+  body{
+    font-family: Georgia, "Times New Roman", serif;
+    color:var(--ink);
+    background:var(--ivory);
+    min-height:100vh;
+  }
+  body.locked{ overflow:hidden }
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(14,90,74,.10), transparent 70%),
+      radial-gradient(800px 520px at -10% 105%, rgba(207,143,163,.13), transparent 70%),
+      var(--ivory);
+  }
+  .urdu{ font-family:var(--urdu); line-height:2.2 }
+
+  /* ── Opening card overlay ───────────────────────────── */
+  #cardOverlay{
+    position:fixed; inset:0; z-index:100;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center; padding:24px;
+    background:radial-gradient(1100px 700px at 50% 30%, var(--emerald), var(--emerald-deep));
+    color:var(--ivory);
+  }
+  #cardOverlay.is-opening{ animation:overlay-out .9s ease forwards }
+  @keyframes overlay-out{ to{ opacity:0; transform:scale(1.05); visibility:hidden } }
+
+  .card-inner{ max-width:420px }
+  .mandala{
+    width:min(46vw,190px); height:auto; color:var(--gold-bright);
+    animation:mandala-spin 70s linear infinite;
+  }
+  @keyframes mandala-spin{ to{ transform:rotate(360deg) } }
+  .mandala .draw{
+    stroke-dasharray:100; stroke-dashoffset:100;
+    animation:draw 2s ease-out forwards;
+  }
+  .mandala .draw.d2{ animation-delay:.5s }
+  @keyframes draw{ to{ stroke-dashoffset:0 } }
+
+  .overlay-urdu{
+    font-family:var(--urdu); font-size:clamp(1.7rem, 7vw, 2.4rem); font-weight:700;
+    color:var(--gold-bright); margin-top:10px;
+    opacity:0; animation:fade-up 1s ease .9s forwards;
+  }
+  .overlay-name{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(1.9rem, 8vw, 2.7rem); letter-spacing:.02em;
+    margin-top:6px;
+    opacity:0; animation:fade-up 1s ease 1.7s forwards;
+  }
+  .overlay-name em{ font-style:italic; color:var(--gold-bright) }
+  #openBtn{
+    margin-top:34px; padding:14px 34px; cursor:pointer;
+    font-family:var(--serif); font-size:1.15rem; letter-spacing:.06em;
+    color:var(--ivory); background:transparent;
+    border:1px solid var(--gold); border-radius:999px;
+    opacity:0; animation:fade-up .9s ease 2.5s forwards, btn-pulse 2.6s ease 3.6s infinite;
+  }
+  #openBtn:hover, #openBtn:focus-visible{ background:rgba(227,193,113,.14); outline:none }
+  @keyframes btn-pulse{
+    0%,100%{ box-shadow:0 0 0 0 rgba(227,193,113,.35) }
+    50%{ box-shadow:0 0 0 12px rgba(227,193,113,0) }
+  }
+  @keyframes fade-up{ from{ opacity:0; transform:translateY(14px) } to{ opacity:1; transform:none } }
+
+  /* ── Falling petals ─────────────────────────────────── */
+  .petal{
+    position:fixed; top:-26px; z-index:60; opacity:0;
+    border-radius:72% 6% 72% 6%; pointer-events:none;
+    animation:petal-fall linear forwards; will-change:transform;
+  }
+  @keyframes petal-fall{
+    0%{ transform:translate3d(0,-4vh,0) rotate(0deg); opacity:0 }
+    8%{ opacity:var(--op) }
+    50%{ transform:translate3d(var(--sway),46vh,0) rotate(calc(var(--spin)/2)) }
+    100%{ transform:translate3d(calc(var(--sway)*-.5),106vh,0) rotate(var(--spin)); opacity:var(--op) }
+  }
+
+  /* ── Main page ──────────────────────────────────────── */
+  #page{ opacity:0 }
+  #page.is-revealed{ animation:page-in 1s ease forwards }
+  @keyframes page-in{ from{ opacity:0; transform:translateY(18px) } to{ opacity:1; transform:none } }
+
+  main{ max-width:680px; margin:0 auto; padding:56px 22px 40px }
+
+  .hero{ text-align:center; margin-bottom:64px }
+  .hero .flower{ width:64px; height:64px; margin-bottom:14px }
+  .eyebrow{
+    font-family:var(--serif); font-style:italic; font-size:1.1rem;
+    color:var(--emerald); letter-spacing:.04em;
+  }
+  .hero h1{
+    font-family:var(--serif); font-weight:700; color:var(--emerald-deep);
+    font-size:clamp(3rem, 13vw, 4.4rem); line-height:1.05; margin:10px 0 2px;
+  }
+  .hero .urdu-name{
+    display:block; font-family:var(--urdu); font-weight:400;
+    font-size:clamp(1.5rem, 6vw, 2rem); color:var(--gold); margin-top:6px;
+  }
+  .hero .urdu-line{
+    font-family:var(--urdu); font-size:clamp(1.3rem, 5.5vw, 1.7rem);
+    color:var(--emerald); margin-top:18px;
+  }
+  .hero .sub{ font-size:1.02rem; color:#5d6a64; margin-top:8px; font-style:italic }
+
+  .divider{ display:flex; align-items:center; gap:14px; margin:34px auto 0; max-width:340px }
+  .divider::before, .divider::after{
+    content:""; flex:1; height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold));
+  }
+  .divider::after{ background:linear-gradient(90deg, var(--gold), transparent) }
+  .divider svg{ width:26px; height:26px; flex:none }
+
+  section h2{
+    font-family:var(--serif); font-weight:600; text-align:center;
+    color:var(--emerald-deep); font-size:clamp(1.7rem, 7vw, 2.2rem); margin-bottom:8px;
+  }
+  .section-kicker{
+    text-align:center; font-size:.8rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:10px;
+  }
+
+  /* Wishes */
+  .wishes{ margin-bottom:72px }
+  .wish-list{ list-style:none; margin-top:30px; display:grid; gap:22px }
+  .wish{
+    background:var(--paper); border:1px solid rgba(200,162,75,.35);
+    border-top:3px solid var(--gold); border-radius:10px;
+    padding:26px 24px 22px; box-shadow:0 10px 28px rgba(20,40,30,.07);
+  }
+  .wish p{ font-size:1.05rem; line-height:1.65 }
+  .wish .urdu-accent{
+    font-family:var(--urdu); color:var(--emerald); display:block;
+    margin-top:10px; font-size:1.05rem;
+  }
+  .wish footer{
+    margin-top:16px; font-family:var(--serif); font-style:italic;
+    font-size:1.12rem; color:var(--emerald);
+  }
+  .wish footer::before{ content:"✿ "; color:var(--rose); font-style:normal; font-size:.85em }
+
+  /* Handwritten note */
+  .note{ margin-bottom:72px; text-align:center }
+  .note-frame{
+    margin:30px auto 0; max-width:560px; background:var(--paper); padding:16px;
+    border:1px solid rgba(200,162,75,.55); transform:rotate(-.6deg);
+    box-shadow:0 0 0 6px var(--paper), 0 0 0 7px rgba(200,162,75,.35), 0 20px 44px rgba(20,40,30,.13);
+  }
+  .note-frame img{ display:block; width:100%; height:auto }
+  .note .caption{ margin-top:22px; font-style:italic; color:#5d6a64 }
+
+  .site-footer{
+    text-align:center; padding:26px 16px 40px; color:#6b776f; font-size:.95rem;
+  }
+  .site-footer .urdu{ color:var(--gold); display:block; margin-top:4px; font-size:1.05rem }
+
+  @media (prefers-reduced-motion: reduce){
+    .mandala{ animation:none }
+    .mandala .draw{ animation:none; stroke-dashoffset:0 }
+    .overlay-urdu, .overlay-name, #openBtn{ animation:fade-up .4s ease forwards }
+    .petal{ display:none }
+    #cardOverlay.is-opening{ animation-duration:.3s }
+    #page.is-revealed{ animation-duration:.3s }
+  }
+</style>
+<noscript><style>#cardOverlay{display:none}#page{opacity:1}</style></noscript>
+</head>
+<body class="locked">
+
+<!-- ── Opening card ── -->
+<div id="cardOverlay" role="dialog" aria-label="Birthday card">
+  <div class="card-inner">
+    <svg class="mandala" viewBox="-100 -100 200 200" aria-hidden="true" fill="none" stroke="currentColor">
+      <defs>
+        <path id="petalPath" pathLength="100" d="M0,-78 C20,-56 22,-26 0,-4 C-22,-26 -20,-56 0,-78 Z"/>
+      </defs>
+      <g stroke-width="1.7">
+        <use href="#petalPath" class="draw"/>
+        <use href="#petalPath" class="draw" transform="rotate(45)"/>
+        <use href="#petalPath" class="draw" transform="rotate(90)"/>
+        <use href="#petalPath" class="draw" transform="rotate(135)"/>
+        <use href="#petalPath" class="draw" transform="rotate(180)"/>
+        <use href="#petalPath" class="draw" transform="rotate(225)"/>
+        <use href="#petalPath" class="draw" transform="rotate(270)"/>
+        <use href="#petalPath" class="draw" transform="rotate(315)"/>
+      </g>
+      <g stroke-width="1.2" transform="rotate(22.5) scale(.52)" opacity=".8">
+        <use href="#petalPath" class="draw d2"/>
+        <use href="#petalPath" class="draw d2" transform="rotate(45)"/>
+        <use href="#petalPath" class="draw d2" transform="rotate(90)"/>
+        <use href="#petalPath" class="draw d2" transform="rotate(135)"/>
+        <use href="#petalPath" class="draw d2" transform="rotate(180)"/>
+        <use href="#petalPath" class="draw d2" transform="rotate(225)"/>
+        <use href="#petalPath" class="draw d2" transform="rotate(270)"/>
+        <use href="#petalPath" class="draw d2" transform="rotate(315)"/>
+      </g>
+      <circle class="draw d2" pathLength="100" r="90" stroke-width="1" stroke-dasharray="2 5"/>
+      <circle r="5" fill="currentColor" stroke="none"/>
+    </svg>
+    <p class="overlay-urdu" lang="ur" dir="rtl">سالگرہ مبارک</p>
+    <h1 class="overlay-name">Happy Birthday, <em>Ayesha</em></h1>
+    <button id="openBtn" type="button">Open your card&ensp;♥</button>
+  </div>
+</div>
+
+<div id="petals" aria-hidden="true"></div>
+
+<!-- ── The card itself ── -->
+<main id="page">
+  <header class="hero">
+    <svg class="flower" viewBox="-50 -50 100 100" aria-hidden="true">
+      <g fill="#c8a24b" opacity=".9">
+        <ellipse rx="11" ry="26" cy="-20"/>
+        <ellipse rx="11" ry="26" cy="-20" transform="rotate(72)"/>
+        <ellipse rx="11" ry="26" cy="-20" transform="rotate(144)"/>
+        <ellipse rx="11" ry="26" cy="-20" transform="rotate(216)"/>
+        <ellipse rx="11" ry="26" cy="-20" transform="rotate(288)"/>
+      </g>
+      <circle r="9" fill="#0e5a4a"/>
+    </svg>
+    <p class="eyebrow">With love, on your special day</p>
+    <h1>Ayesha<span class="urdu-name" lang="ur" dir="rtl">عائشہ</span></h1>
+    <p class="urdu-line" lang="ur" dir="rtl">سالگرہ مبارک ہو</p>
+    <p class="sub">Salgirah Mubarak — Happy Birthday!</p>
+    <div class="divider" aria-hidden="true">
+      <svg viewBox="-50 -50 100 100">
+        <g fill="#cf8fa3" opacity=".85">
+          <ellipse rx="10" ry="22" cy="-17"/>
+          <ellipse rx="10" ry="22" cy="-17" transform="rotate(72)"/>
+          <ellipse rx="10" ry="22" cy="-17" transform="rotate(144)"/>
+          <ellipse rx="10" ry="22" cy="-17" transform="rotate(216)"/>
+          <ellipse rx="10" ry="22" cy="-17" transform="rotate(288)"/>
+        </g>
+        <circle r="7" fill="#c8a24b"/>
+      </svg>
+    </div>
+  </header>
+
+  <section class="wishes">
+    <p class="section-kicker">From your family</p>
+    <h2>Wishes for you</h2>
+    <ul class="wish-list">
+
+      <!-- ✏️ EDIT: replace the messages and names below with your family's real wishes.
+           Copy/paste a whole <li class="wish">…</li> block to add more. -->
+
+      <li class="wish">
+        <p>Ammi jaan — thank you for every dua, every recipe, and all the love you send
+        across the miles. We hope your day is as beautiful as you are.</p>
+        <p class="urdu-accent" lang="ur" dir="rtl">ڈھیر ساری دعائیں</p>
+        <footer>Your loving daughter, [Name]</footer>
+      </li>
+
+      <li class="wish">
+        <p>Happy birthday! Thank you for raising the most wonderful person I know.
+        Wishing you health, happiness, and many more celebrations together.</p>
+        <footer>Your son-in-law, [Name]</footer>
+      </li>
+
+      <li class="wish">
+        <p>May this new year of your life bring you joy, good health, and everything
+        your heart prays for. We love you and we miss you!</p>
+        <p class="urdu-accent" lang="ur" dir="rtl">پیار اور دعاؤں کے ساتھ</p>
+        <footer>The whole family</footer>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- This whole section hides itself automatically until note.jpg exists next to index.html -->
+  <section class="note" id="noteSection">
+    <p class="section-kicker">Something special</p>
+    <h2>A note, written by hand</h2>
+    <figure class="note-frame">
+      <img src="note.jpg" alt="A handwritten birthday note for Ayesha"
+           onerror="document.getElementById('noteSection').style.display='none'">
+    </figure>
+    <p class="caption">Because some things should never be typed.</p>
+  </section>
+
+  <footer class="site-footer">
+    Made with ♥ for Ayesha
+    <span class="urdu" lang="ur" dir="rtl">پیار اور دعاؤں کے ساتھ</span>
+  </footer>
+</main>
+
+<script>
+  const overlay = document.getElementById('cardOverlay');
+  const page = document.getElementById('page');
+  const openBtn = document.getElementById('openBtn');
+  const petalsBox = document.getElementById('petals');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PETAL_COLORS = ['#e8a7b8', '#e3c171', '#f3d9c3', '#cf8fa3'];
+
+  function spawnPetal(){
+    const p = document.createElement('i');
+    p.className = 'petal';
+    const size = 9 + Math.random() * 9;
+    p.style.cssText =
+      'left:' + (Math.random() * 100).toFixed(1) + 'vw;' +
+      'width:' + size.toFixed(1) + 'px;height:' + (size * 1.3).toFixed(1) + 'px;' +
+      'background:' + PETAL_COLORS[Math.random() * PETAL_COLORS.length | 0] + ';' +
+      '--sway:' + ((Math.random() * 120 - 60) | 0) + 'px;' +
+      '--spin:' + ((Math.random() * 520 + 360) | 0) + 'deg;' +
+      '--op:' + (0.5 + Math.random() * 0.45).toFixed(2) + ';' +
+      'animation-duration:' + (6 + Math.random() * 5).toFixed(1) + 's;' +
+      'animation-delay:' + (Math.random() * 1.2).toFixed(1) + 's';
+    p.addEventListener('animationend', () => p.remove());
+    petalsBox.appendChild(p);
+  }
+
+  openBtn.addEventListener('click', () => {
+    overlay.classList.add('is-opening');
+    page.classList.add('is-revealed');
+    document.body.classList.remove('locked');
+    setTimeout(() => overlay.remove(), 1000);
+    if (!reduceMotion) {
+      for (let i = 0; i < 26; i++) spawnPetal();
+      setInterval(() => { if (!document.hidden) spawnPetal(); }, 2400);
+    }
+  }, { once: true });
+</script>
+</body>
+</html>
