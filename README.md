@@ -21,6 +21,15 @@ Each frame hides itself automatically until its image exists, so the page is
 always shareable. Copy another `<figure class="wish-frame">` line in
 `index.html` if you need more than 8 slots.
 
+## The real card as the cover
+
+Save a photo of the physical card's front as `card-front.jpg` next to
+`index.html`. When it exists, the opening screen shows the real card instead of
+the gold flower, and tapping it swings the cover open (3D hinge, left edge)
+into the page. Photo tips: shoot straight-on in daylight, crop to JUST the
+card (no background — the crop edges become the card's edges on screen),
+and avoid glare. Without the file, the gold-flower cover is used automatically.
+
 Keep every photo under ~500 KB so the page loads fast in Pakistan
 (on a Mac: open in Preview → File → Export → JPEG, quality ~70%; or crop tightly
 to just the paper). Natural daylight, shot from straight above, looks best.

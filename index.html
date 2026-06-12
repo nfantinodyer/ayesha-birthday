@@ -95,6 +95,22 @@
   }
   @keyframes fade-up{ from{ opacity:0; transform:translateY(14px) } to{ opacity:1; transform:none } }
 
+  /* Photographed card cover — activates when card-front.jpg exists */
+  .real-card{
+    perspective:1300px; width:min(72vw,300px); margin:0 auto; cursor:pointer;
+    opacity:0; animation:fade-up .9s ease .15s forwards;
+  }
+  #cardOverlay:not(.has-card) .real-card{ display:none }
+  #cardOverlay.has-card .mandala{ display:none }
+  .real-card-flip{
+    transform-origin:left center; transform-style:preserve-3d;
+    border-radius:8px; box-shadow:0 24px 60px rgba(0,0,0,.45);
+  }
+  .real-card img{ display:block; width:100%; height:auto; border-radius:8px }
+  #cardOverlay.is-opening .real-card-flip{ animation:cover-open .9s ease-in forwards }
+  @keyframes cover-open{ to{ transform:rotateY(-130deg) } }
+  #cardOverlay.has-card.is-opening{ animation-delay:.5s }
+
   /* ── Falling petals ─────────────────────────────────── */
   .petal{
     position:fixed; top:-26px; z-index:60; opacity:0;
@@ -179,6 +195,9 @@
     .mandala{ animation:none }
     .mandala .draw{ animation:none; stroke-dashoffset:0 }
     .overlay-urdu, .overlay-name, #openBtn{ animation:fade-up .4s ease forwards }
+    .real-card{ animation:fade-up .4s ease forwards }
+    #cardOverlay.is-opening .real-card-flip{ animation:none }
+    #cardOverlay.has-card.is-opening{ animation-delay:0s }
     .petal{ display:none }
     #cardOverlay.is-opening{ animation-duration:.3s }
     #page.is-revealed{ animation-duration:.3s }
@@ -218,6 +237,13 @@
       <circle class="draw d2" pathLength="100" r="90" stroke-width="1" stroke-dasharray="2 5"/>
       <circle r="5" fill="currentColor" stroke="none"/>
     </svg>
+    <!-- ✏️ The real card's front: save its photo as card-front.jpg next to index.html.
+         When it exists, it replaces the gold flower above and opens like a real card. -->
+    <div class="real-card" id="realCard" title="Open your card">
+      <div class="real-card-flip">
+        <img id="cardFrontImg" src="card-front.jpg" alt="The front of your birthday card">
+      </div>
+    </div>
     <p class="overlay-urdu" lang="ur" dir="rtl">سالگرہ مبارک</p>
     <h1 class="overlay-name">Happy Birthday, <em>Mom</em></h1>
     <button id="openBtn" type="button">Open your card&ensp;♥</button>
@@ -318,16 +344,31 @@
     petalsBox.appendChild(p);
   }
 
-  openBtn.addEventListener('click', () => {
+  const realCard = document.getElementById('realCard');
+  const cardImg = document.getElementById('cardFrontImg');
+  const showCardCover = () => overlay.classList.add('has-card');
+  if (cardImg.complete && cardImg.naturalWidth > 0) {
+    showCardCover();
+  } else {
+    cardImg.addEventListener('load', showCardCover);
+    cardImg.addEventListener('error', () => realCard.remove());
+  }
+
+  let opened = false;
+  function openCard(){
+    if (opened) return;
+    opened = true;
     overlay.classList.add('is-opening');
     page.classList.add('is-revealed');
     document.body.classList.remove('locked');
-    setTimeout(() => overlay.remove(), 1000);
+    setTimeout(() => overlay.remove(), 1600);
     if (!reduceMotion) {
       for (let i = 0; i < 26; i++) spawnPetal();
       setInterval(() => { if (!document.hidden) spawnPetal(); }, 2400);
     }
-  }, { once: true });
+  }
+  openBtn.addEventListener('click', openCard);
+  realCard.addEventListener('click', openCard);
 
   window.addEventListener('load', () => {
     const frames = [...document.querySelectorAll('.wish-frame')];
