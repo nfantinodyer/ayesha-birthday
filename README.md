@@ -1,18 +1,22 @@
-# Happy Birthday, Ayesha 🌸
+# Happy Birthday, Mom 🌸
 
-A single-page birthday card website — emerald & gold, Pakistani-inspired florals,
-an "open your card" animation, falling petals, family wishes, and a framed
-handwritten note. One HTML file, no build step, loads fast on mobile data.
+A single-page birthday card website for Ayesha — emerald & gold, Pakistani-inspired
+florals, an "open your card" animation, falling petals, framed photos of the
+family's handwritten wishes, and a featured handwritten note. One HTML file,
+no build step, loads fast on mobile data.
 
 ## Before sharing
 
-1. **Edit the wishes** — open `index.html`, find the `✏️ EDIT` comment in the
-   "Wishes for you" section, and replace the placeholder names/messages.
-   Copy a whole `<li class="wish">…</li>` block to add more wishes.
-2. **Add the handwritten note** — save a photo/scan of it as `note.jpg` in this
-   folder (next to `index.html`). The section hides itself automatically until
-   the file exists. Keep it under ~500 KB so it loads fast in Pakistan
-   (on a Mac: open in Preview → File → Export → JPEG, quality ~70%).
+1. **Add the handwritten wishes** — photograph each family member's handwritten
+   wish and save them as `wishes/wish-1.jpg`, `wishes/wish-2.jpg`, … (up to
+   `wish-8.jpg`; copy another `<figure class="wish-frame">` line in `index.html`
+   for more). Each frame hides itself automatically until its image exists.
+2. **Add the featured handwritten note** — save it as `note.jpg` in this folder
+   (next to `index.html`). That section also hides itself until the file exists.
+
+Keep every photo under ~500 KB so the page loads fast in Pakistan
+(on a Mac: open in Preview → File → Export → JPEG, quality ~70%; or crop tightly
+to just the paper). Natural daylight, shot from straight above, looks best.
 
 ## Deploy to GitHub Pages (free)
 

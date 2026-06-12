@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Happy Birthday, Ayesha 🌸</title>
-<meta name="description" content="A birthday surprise made with love for Ayesha — tap to open your card.">
+<title>Happy Birthday, Mom 🌸</title>
+<meta name="description" content="A birthday surprise made with love for Mom — tap to open your card.">
 <meta name="theme-color" content="#0e5a4a">
-<meta property="og:title" content="Happy Birthday, Ayesha 🌸">
+<meta property="og:title" content="Happy Birthday, Mom 🌸">
 <meta property="og:description" content="A surprise made with love — tap to open your card">
 <!-- ✏️ After deploying, uncomment and set to the FULL https URL of an image (shows in WhatsApp link previews):
 <meta property="og:image" content="https://YOUR-SITE-URL/preview.jpg">
@@ -154,22 +154,14 @@
 
   /* Wishes */
   .wishes{ margin-bottom:72px }
-  .wish-list{ list-style:none; margin-top:30px; display:grid; gap:22px }
-  .wish{
-    background:var(--paper); border:1px solid rgba(200,162,75,.35);
-    border-top:3px solid var(--gold); border-radius:10px;
-    padding:26px 24px 22px; box-shadow:0 10px 28px rgba(20,40,30,.07);
+  .wish-gallery{ display:grid; gap:36px; margin-top:34px; justify-items:center }
+  .wish-frame{
+    width:100%; max-width:480px; margin:0; background:var(--paper); padding:14px;
+    border:1px solid rgba(200,162,75,.55); transform:rotate(.7deg);
+    box-shadow:0 0 0 5px var(--paper), 0 0 0 6px rgba(200,162,75,.35), 0 16px 36px rgba(20,40,30,.11);
   }
-  .wish p{ font-size:1.05rem; line-height:1.65 }
-  .wish .urdu-accent{
-    font-family:var(--urdu); color:var(--emerald); display:block;
-    margin-top:10px; font-size:1.05rem;
-  }
-  .wish footer{
-    margin-top:16px; font-family:var(--serif); font-style:italic;
-    font-size:1.12rem; color:var(--emerald);
-  }
-  .wish footer::before{ content:"✿ "; color:var(--rose); font-style:normal; font-size:.85em }
+  .wish-gallery .wish-frame:nth-child(odd){ transform:rotate(-.7deg) }
+  .wish-frame img{ display:block; width:100%; height:auto }
 
   /* Handwritten note */
   .note{ margin-bottom:72px; text-align:center }
@@ -230,7 +222,7 @@
       <circle r="5" fill="currentColor" stroke="none"/>
     </svg>
     <p class="overlay-urdu" lang="ur" dir="rtl">سالگرہ مبارک</p>
-    <h1 class="overlay-name">Happy Birthday, <em>Ayesha</em></h1>
+    <h1 class="overlay-name">Happy Birthday, <em>Mom</em></h1>
     <button id="openBtn" type="button">Open your card&ensp;♥</button>
   </div>
 </div>
@@ -251,7 +243,7 @@
       <circle r="9" fill="#0e5a4a"/>
     </svg>
     <p class="eyebrow">With love, on your special day</p>
-    <h1>Ayesha<span class="urdu-name" lang="ur" dir="rtl">عائشہ</span></h1>
+    <h1>Mom<span class="urdu-name" lang="ur" dir="rtl">امی جان</span></h1>
     <p class="urdu-line" lang="ur" dir="rtl">سالگرہ مبارک ہو</p>
     <p class="sub">Salgirah Mubarak — Happy Birthday!</p>
     <div class="divider" aria-hidden="true">
@@ -268,35 +260,22 @@
     </div>
   </header>
 
-  <section class="wishes">
+  <!-- ✏️ Handwritten wishes: save each photo as wishes/wish-1.jpg, wishes/wish-2.jpg, …
+       Frames hide themselves automatically until their image exists.
+       Need more than 8? Copy another <figure class="wish-frame">…</figure> line. -->
+  <section class="wishes" id="wishesSection">
     <p class="section-kicker">From your family</p>
-    <h2>Wishes for you</h2>
-    <ul class="wish-list">
-
-      <!-- ✏️ EDIT: replace the messages and names below with your family's real wishes.
-           Copy/paste a whole <li class="wish">…</li> block to add more. -->
-
-      <li class="wish">
-        <p>Ammi jaan — thank you for every dua, every recipe, and all the love you send
-        across the miles. We hope your day is as beautiful as you are.</p>
-        <p class="urdu-accent" lang="ur" dir="rtl">ڈھیر ساری دعائیں</p>
-        <footer>Your loving daughter, [Name]</footer>
-      </li>
-
-      <li class="wish">
-        <p>Happy birthday! Thank you for raising the most wonderful person I know.
-        Wishing you health, happiness, and many more celebrations together.</p>
-        <footer>Your son-in-law, [Name]</footer>
-      </li>
-
-      <li class="wish">
-        <p>May this new year of your life bring you joy, good health, and everything
-        your heart prays for. We love you and we miss you!</p>
-        <p class="urdu-accent" lang="ur" dir="rtl">پیار اور دعاؤں کے ساتھ</p>
-        <footer>The whole family</footer>
-      </li>
-
-    </ul>
+    <h2>Wishes, in our own hands</h2>
+    <div class="wish-gallery">
+      <figure class="wish-frame"><img src="wishes/wish-1.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
+      <figure class="wish-frame"><img src="wishes/wish-2.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
+      <figure class="wish-frame"><img src="wishes/wish-3.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
+      <figure class="wish-frame"><img src="wishes/wish-4.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
+      <figure class="wish-frame"><img src="wishes/wish-5.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
+      <figure class="wish-frame"><img src="wishes/wish-6.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
+      <figure class="wish-frame"><img src="wishes/wish-7.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
+      <figure class="wish-frame"><img src="wishes/wish-8.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
+    </div>
   </section>
 
   <!-- This whole section hides itself automatically until note.jpg exists next to index.html -->
@@ -304,14 +283,14 @@
     <p class="section-kicker">Something special</p>
     <h2>A note, written by hand</h2>
     <figure class="note-frame">
-      <img src="note.jpg" alt="A handwritten birthday note for Ayesha"
+      <img src="note.jpg" alt="A handwritten birthday note for Mom"
            onerror="document.getElementById('noteSection').style.display='none'">
     </figure>
     <p class="caption">Because some things should never be typed.</p>
   </section>
 
   <footer class="site-footer">
-    Made with ♥ for Ayesha
+    Made with ♥ for Mom
     <span class="urdu" lang="ur" dir="rtl">پیار اور دعاؤں کے ساتھ</span>
   </footer>
 </main>
@@ -351,6 +330,13 @@
       setInterval(() => { if (!document.hidden) spawnPetal(); }, 2400);
     }
   }, { once: true });
+
+  window.addEventListener('load', () => {
+    const frames = [...document.querySelectorAll('.wish-frame')];
+    if (frames.length && frames.every(f => f.style.display === 'none')) {
+      document.getElementById('wishesSection').style.display = 'none';
+    }
+  });
 </script>
 </body>
 </html>
