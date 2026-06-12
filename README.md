@@ -7,12 +7,19 @@ no build step, loads fast on mobile data.
 
 ## Before sharing
 
-1. **Add the handwritten wishes** — photograph each family member's handwritten
-   wish and save them as `wishes/wish-1.jpg`, `wishes/wish-2.jpg`, … (up to
-   `wish-8.jpg`; copy another `<figure class="wish-frame">` line in `index.html`
-   for more). Each frame hides itself automatically until its image exists.
-2. **Add the featured handwritten note** — save it as `note.jpg` in this folder
-   (next to `index.html`). That section also hides itself until the file exists.
+The gallery shows the wishes in family order:
+
+| Slot | File | Who |
+|------|------|-----|
+| 1 | `wishes/wish-1.jpg` | Wife's — **reserved, add when written** |
+| 2 | `note.jpg` | Nicholas's Urdu note (translation shown beneath it) |
+| 3 | `wishes/wish-2.jpg` | Lauren's |
+| 4 | `wishes/wish-3.jpg` | Kiwi's |
+| 5+ | `wishes/wish-4.jpg` … `wish-8.jpg` | Anyone else |
+
+Each frame hides itself automatically until its image exists, so the page is
+always shareable. Copy another `<figure class="wish-frame">` line in
+`index.html` if you need more than 8 slots.
 
 Keep every photo under ~500 KB so the page loads fast in Pakistan
 (on a Mac: open in Preview → File → Export → JPEG, quality ~70%; or crop tightly

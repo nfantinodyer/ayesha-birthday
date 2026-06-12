@@ -163,20 +163,12 @@
   .wish-gallery .wish-frame:nth-child(odd){ transform:rotate(-.7deg) }
   .wish-frame img{ display:block; width:100%; height:auto }
 
-  /* Handwritten note */
-  .note{ margin-bottom:72px; text-align:center }
-  .note-frame{
-    margin:30px auto 0; max-width:560px; background:var(--paper); padding:16px;
-    border:1px solid rgba(200,162,75,.55); transform:rotate(-.6deg);
-    box-shadow:0 0 0 6px var(--paper), 0 0 0 7px rgba(200,162,75,.35), 0 20px 44px rgba(20,40,30,.13);
+  .wish-frame figcaption{
+    font-family:var(--serif); font-style:italic; text-align:center;
+    font-size:1.12rem; line-height:1.55; color:var(--ink);
+    padding:16px 8px 4px;
   }
-  .note-frame img{ display:block; width:100%; height:auto }
-  .note-translation{
-    max-width:480px; margin:28px auto 0; font-family:var(--serif);
-    font-style:italic; font-size:1.2rem; line-height:1.6; color:var(--ink);
-  }
-  .note-translation .sig{ margin-top:10px; color:var(--emerald) }
-  .note .caption{ margin-top:22px; font-style:italic; color:#5d6a64 }
+  .wish-frame figcaption .sig{ margin-top:8px; color:var(--emerald) }
 
   .site-footer{
     text-align:center; padding:26px 16px 40px; color:#6b776f; font-size:.95rem;
@@ -265,14 +257,27 @@
     </div>
   </header>
 
-  <!-- ✏️ Handwritten wishes: save each photo as wishes/wish-1.jpg, wishes/wish-2.jpg, …
-       Frames hide themselves automatically until their image exists.
-       Need more than 8? Copy another <figure class="wish-frame">…</figure> line. -->
+  <!-- ✏️ Handwritten wishes, in family order:
+       wishes/wish-1.jpg = wife's (reserved — frame appears when the photo exists)
+       note.jpg          = Nicholas's Urdu note (second, with its translation)
+       wishes/wish-2.jpg = Lauren's
+       wishes/wish-3.jpg = Kiwi's
+       wishes/wish-4.jpg onward = anyone else. Frames hide until their image exists. -->
   <section class="wishes" id="wishesSection">
     <p class="section-kicker">From your family</p>
     <h2>Wishes, in our own hands</h2>
     <div class="wish-gallery">
       <figure class="wish-frame"><img src="wishes/wish-1.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
+      <figure class="wish-frame">
+        <img src="note.jpg" alt="A birthday note handwritten in Urdu by Nicholas"
+             onerror="this.parentElement.style.display='none'">
+        <figcaption>
+          <p>&ldquo;It is my dua that your birthday passes in splendor, and we all
+          hope to see you very soon. I am waiting&nbsp;&mdash; impatiently&nbsp;&mdash;
+          to meet you, and Yuki and Riko.&rdquo;</p>
+          <p class="sig">&mdash; Love, Nicholas</p>
+        </figcaption>
+      </figure>
       <figure class="wish-frame"><img src="wishes/wish-2.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
       <figure class="wish-frame"><img src="wishes/wish-3.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
       <figure class="wish-frame"><img src="wishes/wish-4.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
@@ -281,23 +286,6 @@
       <figure class="wish-frame"><img src="wishes/wish-7.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
       <figure class="wish-frame"><img src="wishes/wish-8.jpg" alt="A handwritten birthday wish" onerror="this.parentElement.style.display='none'"></figure>
     </div>
-  </section>
-
-  <!-- This whole section hides itself automatically until note.jpg exists next to index.html -->
-  <section class="note" id="noteSection">
-    <p class="section-kicker">Something special</p>
-    <h2>A note, written by hand</h2>
-    <figure class="note-frame">
-      <img src="note.jpg" alt="A birthday note handwritten in Urdu by Nicholas"
-           onerror="document.getElementById('noteSection').style.display='none'">
-    </figure>
-    <div class="note-translation">
-      <p>&ldquo;It is my dua that your birthday passes in splendor, and we all
-      hope to see you very soon. I am waiting&nbsp;&mdash; impatiently&nbsp;&mdash;
-      to meet you, and Yuki and Riko.&rdquo;</p>
-      <p class="sig">&mdash; Love, Nicholas</p>
-    </div>
-    <p class="caption">Written in Urdu by Nicholas &mdash; his first time writing the script.</p>
   </section>
 
   <footer class="site-footer">
