@@ -171,6 +171,11 @@
     box-shadow:0 0 0 6px var(--paper), 0 0 0 7px rgba(200,162,75,.35), 0 20px 44px rgba(20,40,30,.13);
   }
   .note-frame img{ display:block; width:100%; height:auto }
+  .note-translation{
+    max-width:480px; margin:28px auto 0; font-family:var(--serif);
+    font-style:italic; font-size:1.2rem; line-height:1.6; color:var(--ink);
+  }
+  .note-translation .sig{ margin-top:10px; color:var(--emerald) }
   .note .caption{ margin-top:22px; font-style:italic; color:#5d6a64 }
 
   .site-footer{
@@ -283,10 +288,16 @@
     <p class="section-kicker">Something special</p>
     <h2>A note, written by hand</h2>
     <figure class="note-frame">
-      <img src="note.jpg" alt="A handwritten birthday note for Mom"
+      <img src="note.jpg" alt="A birthday note handwritten in Urdu by Nicholas"
            onerror="document.getElementById('noteSection').style.display='none'">
     </figure>
-    <p class="caption">Because some things should never be typed.</p>
+    <div class="note-translation">
+      <p>&ldquo;It is my dua that your birthday passes in splendor, and we all
+      hope to see you very soon. I am waiting&nbsp;&mdash; impatiently&nbsp;&mdash;
+      to meet you, and Yuki and Riko.&rdquo;</p>
+      <p class="sig">&mdash; Love, Nicholas</p>
+    </div>
+    <p class="caption">Written in Urdu by Nicholas &mdash; his first time writing the script.</p>
   </section>
 
   <footer class="site-footer">
